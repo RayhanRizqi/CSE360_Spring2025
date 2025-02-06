@@ -7,21 +7,21 @@ package application;
 public class User {
     private String userName;
     private String password;
-    private String role;
+    private String[] roles; // changed to roles
 
     // Constructor to initialize a new User object with userName, password, and role.
-    public User( String userName, String password, String role) {
+    public User( String userName, String password, String[] roles) { //changed to roles
         this.userName = userName;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
     
     // Sets the role of the user.
-    public void setRole(String role) {
-    	this.role=role;
+    public void setRole(String[] roles) {
+    	this.roles=roles;
     }
 
     public String getUserName() { return userName; }
     public String getPassword() { return password; }
-    public String getRole() { return role; }
+    public String getRole() { return roles; }
 }

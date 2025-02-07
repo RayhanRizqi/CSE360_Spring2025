@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import databasePart1.*;
+import java.util.List;
 
 /**
  * The WelcomeLoginPage class displays a welcome screen for authenticated users.
@@ -29,7 +30,7 @@ public class WelcomeLoginPage {
 	    // Button to navigate to the user's respective page based on their role
 	    Button continueButton = new Button("Continue to your Page");
 	    continueButton.setOnAction(a -> {
-	    	String role =user.getRole();
+	    	List<String> role =user.getRole();
 	    	System.out.println(role);
 	    	
 	    	if(role.equals("admin")) {

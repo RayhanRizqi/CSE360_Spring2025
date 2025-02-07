@@ -79,10 +79,9 @@ public class DatabaseHelper {
 			pstmt.setString(3, user.getName()); // added name
 			pstmt.setString(4, user.getEmail()); // added email
 
-			String[] roles = user.getRoles();
-			
-			String joinRoles = (roles != null) ? String.join(",", roles) : "";
-			pstmt.setString(5, joinRoles);
+			List<String> roles = user.getRoles();
+			String joinedRoles = (roles != null) ? String.join(",", roles) : "";
+			pstmt.setString(3,  joinedRoles);
 			//pstmt.setString(3, user.getRole());
 			pstmt.executeUpdate();
 		}
@@ -94,10 +93,10 @@ public class DatabaseHelper {
 		try (PreparedStatement pstmt = connection.prepareStatement(query)) {
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
-			String[] roles = user.getRoles();
+			List<String> roles = user.getRoles();
 			
-			String joinRoles = (roles != null) ? String.join(",", roles) : "";
-			pstmt.setString(3, joinRoles);
+			String joinedRoles = (roles != null) ? String.join(",", roles) : "";
+			pstmt.setString(3,  joinedRoles);
 			//pstmt.setString(3, user.getRole());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				return rs.next();

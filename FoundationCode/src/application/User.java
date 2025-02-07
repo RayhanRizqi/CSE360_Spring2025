@@ -6,14 +6,18 @@ package application;
  */
 public class User {
     private String userName;
+    private String name; // added name 
     private String password;
     private String[] roles; // changed to roles
+    private String email; // added email
 
     // Constructor to initialize a new User object with userName, password, and role.
-    public User( String userName, String password, String[] roles) { //changed to roles
+    public User( String userName, String name, String password, String[] roles, String email) { //changed to roles, added name and email
         this.userName = userName;
+        this.name = name; // added name 
         this.password = password;
         this.roles = roles;
+        this.email = email; // added email
     }
     
     // Sets the role of the user.
@@ -22,6 +26,8 @@ public class User {
     }
 
     public String getUserName() { return userName; }
+    public String getName() { return name; } // added name 
     public String getPassword() { return password; }
     public String getRole() { return roles; }
+    public String getEmail() { return email; } // added email
 }

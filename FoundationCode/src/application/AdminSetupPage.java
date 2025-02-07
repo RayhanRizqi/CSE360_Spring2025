@@ -39,7 +39,7 @@ public class AdminSetupPage {
             String password = passwordField.getText();
             try {
             	// Create a new User object with admin role and register in the database
-            	User user=new User(userName, password, new String[] { "admin" });
+            	User user=new User(userName, password, "admin");
                 databaseHelper.register(user);
                 System.out.println("Administrator setup completed.");
                 

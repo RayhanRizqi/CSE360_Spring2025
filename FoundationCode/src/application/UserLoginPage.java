@@ -4,9 +4,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import databasePart1.*;
 
@@ -44,16 +47,23 @@ public class UserLoginPage {
             String userName = userNameField.getText();
             String password = passwordField.getText();
             try {
-            	User user=new User(userName, password, new ArrayList<>());
+            	User user = new User(userName, password, new ArrayList<>());
             	WelcomeLoginPage welcomeLoginPage = new WelcomeLoginPage(databaseHelper);
             	
             	// Retrieve the user's role from the database using userName
             	String role = databaseHelper.getUserRole(userName);
-            	
+
             	if(role!=null) {
-            		user.setRole(new String[] { role });
+            		List<String> roles = user.getRoles();
+            		user.setRole(Collections.singletonList(role)); 
+            		// this setRole line might cause problems because singLetonList makes an immutable list
+            		System.out.println(roles);
             		if(databaseHelper.login(user)) {
-            			welcomeLoginPage.show(primaryStage,user);
+            			if((roles.size()) > 1) {
+            				new RoleSelectionPage().show(databaseHelper, primaryStage, user);
+            	    	} else {
+                			welcomeLoginPage.show(primaryStage,user);
+            	    	}
             		}
             		else {
             			// Display an error if the login fails

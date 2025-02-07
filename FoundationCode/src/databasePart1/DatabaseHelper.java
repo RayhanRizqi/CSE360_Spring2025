@@ -74,7 +74,11 @@ public class DatabaseHelper {
 		try (PreparedStatement pstmt = connection.prepareStatement(insertUser)) {
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getRole());
+			String[] roles = user.getRoles();
+			
+			String joinRoles = (roles != null) ? String.join(",", roles) : "";
+			pstmt.setString(3, joinRoles);
+			//pstmt.setString(3, user.getRole());
 			pstmt.executeUpdate();
 		}
 	}
@@ -85,7 +89,11 @@ public class DatabaseHelper {
 		try (PreparedStatement pstmt = connection.prepareStatement(query)) {
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getRole());
+			String[] roles = user.getRoles();
+			
+			String joinRoles = (roles != null) ? String.join(",", roles) : "";
+			pstmt.setString(3, joinRoles);
+			//pstmt.setString(3, user.getRole());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				return rs.next();
 			}

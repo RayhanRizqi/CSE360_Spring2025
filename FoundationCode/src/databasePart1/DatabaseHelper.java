@@ -46,6 +46,8 @@ public class DatabaseHelper {
 		String userTable = "CREATE TABLE IF NOT EXISTS cse360users ("
 				+ "id INT AUTO_INCREMENT PRIMARY KEY, "
 				+ "userName VARCHAR(255) UNIQUE, "
+				+ "name VARCHAR(255),"	// added name field
+				+ "email VARCHAR(255) UNIQUE, " // Added email field
 				+ "password VARCHAR(255), "
 				+ "role VARCHAR(20))";
 		statement.execute(userTable);
@@ -70,14 +72,17 @@ public class DatabaseHelper {
 
 	// Registers a new user in the database.
 	public void register(User user) throws SQLException {
-		String insertUser = "INSERT INTO cse360users (userName, password, role) VALUES (?, ?, ?)";
+		String insertUser = "INSERT INTO cse360users (userName, password, name, email, role) VALUES (?, ?, ?, ?, ?)"; // added ?, ? for name email
 		try (PreparedStatement pstmt = connection.prepareStatement(insertUser)) {
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getName()); // added name
+			pstmt.setString(4, user.getEmail()); // added email
+
 			String[] roles = user.getRoles();
 			
 			String joinRoles = (roles != null) ? String.join(",", roles) : "";
-			pstmt.setString(3, joinRoles);
+			pstmt.setString(5, joinRoles);
 			//pstmt.setString(3, user.getRole());
 			pstmt.executeUpdate();
 		}
